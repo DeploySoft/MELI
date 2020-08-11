@@ -34,11 +34,6 @@ public class Item implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "item_children", joinColumns = @JoinColumn(name = "parent"), inverseJoinColumns = @JoinColumn(name = "children"))
-    @JsonBackReference
     private Set<Item> children;
 
-    @ManyToMany
-    @JoinTable(name = "item_children", joinColumns = @JoinColumn(name = "children"), inverseJoinColumns = @JoinColumn(name = "parent"))
-    @JsonBackReference
-    private Set<Item> childrenOf;
 }

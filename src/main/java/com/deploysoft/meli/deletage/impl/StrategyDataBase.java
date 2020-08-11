@@ -39,11 +39,13 @@ public class StrategyDataBase extends StrategyAbs<Item> {
                 item.setChildren(null);
             return item;
         });
-
     }
 
 
     public void save(ItemResponse itemResponse) {
-        CompletableFuture.supplyAsync(() -> itemRepository.save(wsToDbMapper.dtoToEntity(itemResponse)));
+        CompletableFuture.supplyAsync(() -> {
+            itemResponse.getChildren().forEach(children -> itemRepository.save(wsToDbMapper.dtoToEntity(children)));
+            return itemRepository.save(wsToDbMapper.dtoToEntity(itemResponse));
+        });
     }
 }
