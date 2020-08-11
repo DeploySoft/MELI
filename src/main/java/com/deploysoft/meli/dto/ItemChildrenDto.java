@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * @author : J. Andrés Boyacá Silva
@@ -14,12 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDto {
+public class ItemChildrenDto {
     private String id;
-    private String title;
-    private String categoryId;
-    private Float price;
-    private LocalDateTime startTime;
     private LocalDateTime stopTime;
-    private Set<ItemChildrenDto> children;
 }
