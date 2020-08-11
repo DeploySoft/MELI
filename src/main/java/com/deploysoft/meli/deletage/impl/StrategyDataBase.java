@@ -32,12 +32,18 @@ public class StrategyDataBase extends StrategyAbs<Item> {
     }
 
     @Override
-    public Optional<Item> getItem(String itemId) {
-        return itemRepository.findById(itemId);
+    public Optional<Item> getItem(String itemId, boolean children) {
+        Optional<Item> byId = itemRepository.findById(itemId);
+        return byId.map(item -> {
+            if (!children)
+                item.setChildren(null);
+            return item;
+        });
+
     }
 
 
     public void save(ItemResponse itemResponse) {
-        CompletableFuture.runAsync(() -> itemRepository.save(wsToDbMapper.dtoToEntity(itemResponse)));
+        CompletableFuture.supplyAsync(() -> itemRepository.save(wsToDbMapper.dtoToEntity(itemResponse)));
     }
 }

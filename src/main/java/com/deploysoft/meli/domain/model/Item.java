@@ -1,14 +1,11 @@
 package com.deploysoft.meli.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,7 +33,12 @@ public class Item implements Serializable {
     private LocalDateTime stopTime;
 
     @ManyToMany
-    @JoinTable(name = "item_children", joinColumns = { @JoinColumn(name = "parent") }, inverseJoinColumns = { @JoinColumn(name = "children") })
+    @JoinTable(name = "item_children", joinColumns = @JoinColumn(name = "parent"), inverseJoinColumns = @JoinColumn(name = "children"))
+    @JsonBackReference
     private Set<Item> children;
 
+    @ManyToMany
+    @JoinTable(name = "item_children", joinColumns = @JoinColumn(name = "children"), inverseJoinColumns = @JoinColumn(name = "parent"))
+    @JsonBackReference
+    private Set<Item> childrenOf;
 }

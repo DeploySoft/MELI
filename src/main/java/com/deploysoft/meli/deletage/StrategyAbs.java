@@ -1,6 +1,5 @@
 package com.deploysoft.meli.deletage;
 
-import com.deploysoft.meli.dto.ItemDto;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -11,6 +10,6 @@ import org.springframework.http.ResponseEntity;
  **/
 public abstract class StrategyAbs<T> implements Strategy<T> {
 
-    public abstract ResponseEntity<ItemDto> getItemResponse(T Item);
+    public abstract ResponseEntity<?> getItemResponse(T Item);
 
 }

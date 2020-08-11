@@ -5,11 +5,14 @@ import com.deploysoft.meli.deletage.impl.StrategyWebService;
 import com.deploysoft.meli.domain.model.Item;
 import com.deploysoft.meli.dto.ItemDto;
 import com.deploysoft.meli.service.dto.ItemResponse;
-import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * Facade pattern
@@ -18,23 +21,40 @@ import java.util.Optional;
  * @since : 8/11/2020, Tue
  **/
 @Service
-@AllArgsConstructor
 public class Facade {
 
-    private final StrategyDataBase strategyDataBase;
-    private final StrategyWebService strategyWebService;
+    private final ResponseEntity<ItemDto> badRequest = ResponseEntity.badRequest().body(null);
 
-    public ResponseEntity<ItemDto> getItem(String itemId) {
-        Optional<Item> item = strategyDataBase.getItem(itemId);
-        if (item.isPresent()) {
-            return strategyDataBase.getItemResponse(item.get());
-        } else {
-            Optional<ItemResponse> ws = strategyWebService.getItem(itemId);
-            if (ws.isPresent()) {
-                strategyDataBase.save(ws.get());
-                return strategyWebService.getItemResponse(ws.get());
+    private final List<BiFunction<String, Boolean, ResponseEntity<ItemDto>>> listStrategy;
+
+
+    public Facade(StrategyDataBase strategyDataBase, StrategyWebService strategyWebService) {
+        BiFunction<String, Boolean, ResponseEntity<ItemDto>> db = (itemId, children) -> {
+            Optional<Item> item = strategyDataBase.getItem(itemId, children);
+            return item.map(strategyDataBase::getItemResponse).orElse(badRequest);
+        };
+        BiFunction<String, Boolean, ResponseEntity<ItemDto>> ws = (itemId, children) -> {
+            Optional<ItemResponse> item = strategyWebService.getItem(itemId, true);
+            item.ifPresent(strategyDataBase::save);
+            if (!children) {
+                item = item.map(itemResponse -> {
+                    itemResponse.setChildren(null);
+                    return itemResponse;
+                });
             }
+            return item.map(strategyWebService::getItemResponse).orElse(badRequest);
+        };
+        listStrategy = Arrays.asList(db, ws);
+    }
+
+    public ResponseEntity<ItemDto> getItem(String itemId, boolean withChildren) {
+        for (BiFunction<String, Boolean, ResponseEntity<ItemDto>> function : listStrategy) {
+            ResponseEntity<ItemDto> apply = function.apply(itemId, withChildren);
+            if (HttpStatus.BAD_REQUEST.equals(apply.getStatusCode())) {
+                continue;
+            }
+            return apply;
         }
-        return ResponseEntity.badRequest().body(null);
+        return badRequest;
     }
 }

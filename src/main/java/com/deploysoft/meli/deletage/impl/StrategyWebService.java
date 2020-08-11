@@ -30,19 +30,26 @@ public class StrategyWebService extends StrategyAbs<ItemResponse> {
         return ResponseEntity.ok(webServiceMapper.entityToDTO(item));
     }
 
+    /**
+     * This method will remove its children if children is false
+     *
+     * @param itemId   item
+     * @param children default true to get information just one time and save
+     * @return
+     */
     @Override
-    public Optional<ItemResponse> getItem(String itemId) {
-
+    public Optional<ItemResponse> getItem(String itemId, boolean children) {
         ResponseEntity<ItemResponse> response = iMercadoLibre.getItem(itemId);
         if (HttpStatus.BAD_REQUEST.equals(response.getStatusCode())) {
             return Optional.empty();
         }
         ItemResponse item = response.getBody();
-        ResponseEntity<List<ItemResponse>> responseChildren = iMercadoLibre.getItemChildren(item.getId());
-        if (HttpStatus.OK.equals(responseChildren.getStatusCode())) {
-            item.setChildren(responseChildren.getBody());
+        if (children) {
+            ResponseEntity<List<ItemResponse>> responseChildren = iMercadoLibre.getItemChildren(item.getId());
+            if (HttpStatus.OK.equals(responseChildren.getStatusCode())) {
+                item.setChildren(responseChildren.getBody());
+            }
         }
-
         return Optional.ofNullable(item);
     }
 }
