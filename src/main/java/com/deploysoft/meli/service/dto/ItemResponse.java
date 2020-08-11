@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,4 +19,5 @@ public class ItemResponse {
     private Float price;
     private LocalDateTime startTime;
     private LocalDateTime stopTime;
+    private List<ItemResponse> children;
 }

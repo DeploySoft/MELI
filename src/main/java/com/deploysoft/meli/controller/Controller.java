@@ -1,6 +1,7 @@
 package com.deploysoft.meli.controller;
 
 import com.deploysoft.meli.service.IMercadoLibre;
+import com.deploysoft.meli.service.dto.ItemResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,9 @@ public class Controller {
 
     @GetMapping("/test")
     public ResponseEntity getUsers() {
-        return ResponseEntity.ok(iMercadoLibre.getItem("MLU468887129"));
+        ItemResponse mlu468887129 = iMercadoLibre.getItem("MLU460998489");
+        mlu468887129.setChildren(iMercadoLibre.getItemChildren("MLU460998489"));
+        return ResponseEntity.ok(mlu468887129);
     }
 
 }
