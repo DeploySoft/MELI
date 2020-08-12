@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app-server:
+    container_name: app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/meli?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
+    links:
+      - db:db
+  db:
+    image: mysql
+    container_name: db
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: meli
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - backend
+volumes:
+  db-data:
+networks:
+  backend:
+    driver: bridge

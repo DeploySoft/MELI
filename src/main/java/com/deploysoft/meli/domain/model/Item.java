@@ -1,6 +1,5 @@
 package com.deploysoft.meli.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;

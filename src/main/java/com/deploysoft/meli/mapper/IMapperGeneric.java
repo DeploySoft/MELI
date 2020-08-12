@@ -6,6 +6,7 @@ import java.util.List;
  * @author : J. Andrés Boyacá Silva
  * @since : 8/11/2020, Tue
  **/
+@SuppressWarnings("unchecked")
 public interface IMapperGeneric<T, D> {
 
     T dtoToEntity(D dto);
