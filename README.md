@@ -16,7 +16,8 @@ You should use a strategy to save the data when you've consumed api service.
 * You could use postman and [newman](https://www.npmjs.com/package/newman) to ensure your e2e
 * You must create functional test
 * You could add swagger documentation
-* if you want that the app works with workloads you could deploy in [AWS](https://aws.amazon.com/) and use EC2, ELB and EBS
+* If you want that the app works with workloads you could deploy in [AWS](https://aws.amazon.com/) and use EC2, ELB and EBS
+* If you want more metrics you should use an agent for this like new newrelic, dynaTrace , appOptics and so on. 
  
 ## Metrics
 
