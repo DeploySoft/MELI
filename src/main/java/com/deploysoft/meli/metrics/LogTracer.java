@@ -48,7 +48,7 @@ public class LogTracer {
         }
         builder.requestIn(metrics.type().isValue());
         builder.time(timeElapsed);
-        builder.dateTime(LocalDateTime.now());
+        builder.dateTime((LocalDateTime.now().withNano(0)));
         metricsRepository.save(builder.build());
     }
 }
