@@ -1,11 +1,12 @@
 package com.deploysoft.meli.controller;
 
 import com.deploysoft.meli.deletage.Facade;
+import com.deploysoft.meli.deletage.impl.MetricsDelegate;
 import com.deploysoft.meli.dto.ItemDto;
 import com.deploysoft.meli.metrics.api.Metrics;
 import com.deploysoft.meli.metrics.constants.Category;
-import com.deploysoft.meli.metrics.repository.MetricsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +17,9 @@ public class Controller {
 
     @Autowired
     private Facade facade;
-    
+
     @Autowired
-    private MetricsRepository metricsRepository;
+    private MetricsDelegate metrics;
 
     @Metrics(type = Category.INBOUND)
     @GetMapping("/items/{itemId}")
@@ -32,9 +33,9 @@ public class Controller {
         return facade.getItem(itemId, true);
     }
 
-    @GetMapping("/metrics")
+    @GetMapping(value = "/metrics", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getMetrics() {
-        return ResponseEntity.ok(metricsRepository.findAll());
+        return ResponseEntity.ok().body(metrics.getMetrics());
     }
 
 

@@ -8,6 +8,4 @@
                                       from metrics cr where cr.date = m.date and cr.code is not null
                                       group by date, code) as ir)
            ) as json
-FROM metrics m group by date) as result
-
-
+FROM metrics m group by date) as result;
