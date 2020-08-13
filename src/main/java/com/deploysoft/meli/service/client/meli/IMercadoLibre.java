@@ -1,6 +1,6 @@
-package com.deploysoft.meli.service;
+package com.deploysoft.meli.service.client.meli;
 
-import com.deploysoft.meli.service.dto.ItemResponse;
+import com.deploysoft.meli.service.client.meli.dto.ItemResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

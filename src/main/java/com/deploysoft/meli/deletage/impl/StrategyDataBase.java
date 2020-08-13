@@ -6,7 +6,7 @@ import com.deploysoft.meli.dto.ItemDto;
 import com.deploysoft.meli.mapper.impl.DataBaseMapper;
 import com.deploysoft.meli.mapper.impl.WsToDbMapper;
 import com.deploysoft.meli.repository.ItemRepository;
-import com.deploysoft.meli.service.dto.ItemResponse;
+import com.deploysoft.meli.service.client.meli.dto.ItemResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

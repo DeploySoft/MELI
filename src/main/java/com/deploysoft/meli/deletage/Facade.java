@@ -4,7 +4,7 @@ import com.deploysoft.meli.deletage.impl.StrategyDataBase;
 import com.deploysoft.meli.deletage.impl.StrategyWebService;
 import com.deploysoft.meli.domain.model.Item;
 import com.deploysoft.meli.dto.ItemDto;
-import com.deploysoft.meli.service.dto.ItemResponse;
+import com.deploysoft.meli.service.client.meli.dto.ItemResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

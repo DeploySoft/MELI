@@ -1,4 +1,4 @@
-package com.deploysoft.meli.service.dto;
+package com.deploysoft.meli.service.client.meli.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

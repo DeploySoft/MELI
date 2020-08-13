@@ -2,7 +2,7 @@ package com.deploysoft.meli.mapper.impl;
 
 import com.deploysoft.meli.dto.ItemDto;
 import com.deploysoft.meli.mapper.IMapperGeneric;
-import com.deploysoft.meli.service.dto.ItemResponse;
+import com.deploysoft.meli.service.client.meli.dto.ItemResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
