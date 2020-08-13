@@ -1,6 +1,7 @@
 # Test for Meli
+
 ## Description
-The api must consume a MELI api where you could find an items and its children
+The api must consume a **MELI** api where you could find an items and its children
 You should use a strategy to save the data when you've consumed api service.
 
 ##Technologies
@@ -15,11 +16,17 @@ You should use a strategy to save the data when you've consumed api service.
 * You could use postman and [newman](https://www.npmjs.com/package/newman) to ensure your e2e
 * You must create functional test
 * You could add swagger documentation
-* if you want that the app works with workload you could deploy in [AWS](https://aws.amazon.com/) and use EC2, ELB and EBS 
+* if you want that the app works with workloads you could deploy in [AWS](https://aws.amazon.com/) and use EC2, ELB and EBS
+ 
+## Metrics
+
+- `GET /actuator/health` 
+- `GET /actuator/metrics`
+- `GET /metrics`
 
 ## How to deploy it?
-* git pull 
-* docker-compose  -f docker-compose.yml up -d
+* `git pull` 
+* `docker-compose  -f docker-compose.yml up -d`
 * enjoy :)
 
  
